@@ -23,12 +23,15 @@ const GenerateSection = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: rgb(42, 49, 56);
-  gap: 1rem;
+  gap: 2rem;
 `
 
 const InputOptions = styled.div`
   width: 400px;
   height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `
 
 const LengthSection = styled.div`
@@ -71,28 +74,50 @@ const Button = styled.button`
   outline: none;
   border: none;
   border-radius: 8px;
-  color: rgb(42, 49, 56);
+  color: rgb(170, 170, 170);
   background-color: rgb(0,100,0);
   cursor: pointer;
 `
 
 export default function Home() {
+  const [length, setLength] = useState(1)
+  const [includeNumbers, setIncludeNumbers] = useState(false)
+  const [password, setPassword] = useState(null)
+  const generator = require('generate-password');
+
+  useEffect(() => {
+    console.log(includeNumbers)
+    console.log(length)
+  }, [includeNumbers, length])
+
+  const generatePassword = () => {
+    let password = generator.generate({
+      length: length,
+      numbers: includeNumbers
+    })
+    setPassword(password)
+  }
+
+
   return (
     <Container>
       <GenerateSection>
         <InputOptions>
           <LengthSection>
             <Label for='length'>Choose length</Label>
-            <SelectLength name='length'>
-              {Array.from(Array(257).keys()).map(number => number > 0 ? <option value={number} key={number}>{number}</option> : null)}
+            <SelectLength name='length' onChange={e => setLength(e.target.value)} >
+              {Array.from(Array(257).keys()).map(number => number > 0 ?
+                <option value={number} key={number}>{number}</option>
+                : null)}
             </SelectLength>
           </LengthSection>
           <NumbersSection>
             <Label for='numbers'>Include numbers</Label>
-            <Checkbox name='numbers' type='checkbox' />
+            <Checkbox name='numbers' type='checkbox' onClick={() => setIncludeNumbers(prev => !prev)} />
           </NumbersSection>
         </InputOptions>
-        <Button>Generate</Button>
+        <Button onClick={() => generatePassword()}>Generate</Button>
+        {password ? <span>{password}</span>: null}
       </GenerateSection>
     </Container>
   )
