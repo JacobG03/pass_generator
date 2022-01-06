@@ -80,9 +80,20 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const Password = styled.span`
+const GeneratedPassword = styled.div`
+  width: 100%;
   height: fit-content;
-  word-break: break-all;
+  display: flex;
+  gap: 1rem;
+`
+
+const Password = styled.input`
+  width: 75%;
+`
+
+const Copy = styled.button`
+  width: 25%;
+  height: 2rem;
 `
 
 export default function Home() {
@@ -120,7 +131,11 @@ export default function Home() {
           </NumbersSection>
         </InputOptions>
         <Button onClick={() => generatePassword()}>Generate</Button>
-        {password ? <Password>{password}</Password>: null}
+        {password ? 
+        <GeneratedPassword>
+          <Password value={password} disabled/>
+          <Copy onClick={e => {navigator.clipboard.writeText(password)}}>Copy</Copy>
+        </GeneratedPassword>: null}
       </GenerateSection>
     </Container>
   )
