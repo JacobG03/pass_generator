@@ -81,7 +81,6 @@ const Button = styled.button`
 `
 
 const Password = styled.span`
-  width: 100%;
   height: fit-content;
   word-break: break-all;
 `
@@ -93,8 +92,6 @@ export default function Home() {
   const generator = require('generate-password');
 
   useEffect(() => {
-    console.log(includeNumbers)
-    console.log(length)
   }, [includeNumbers, length])
 
   const generatePassword = () => {
@@ -110,7 +107,7 @@ export default function Home() {
       <GenerateSection>
         <InputOptions>
           <LengthSection>
-            <Label for='length'>Choose length</Label>
+            <Label htmlFor='length'>Choose length</Label>
             <SelectLength name='length' onChange={e => setLength(e.target.value)} >
               {Array.from(Array(257).keys()).map(number => number > 0 ?
                 <option value={number} key={number}>{number}</option>
@@ -118,7 +115,7 @@ export default function Home() {
             </SelectLength>
           </LengthSection>
           <NumbersSection>
-            <Label for='numbers'>Include numbers</Label>
+            <Label htmlFor='numbers'>Include numbers</Label>
             <Checkbox name='numbers' type='checkbox' onClick={() => setIncludeNumbers(prev => !prev)} />
           </NumbersSection>
         </InputOptions>
