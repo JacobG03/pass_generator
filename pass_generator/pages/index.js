@@ -15,7 +15,8 @@ const Container = styled.div`
 `
 
 const GenerateSection = styled.div`
-  width: fit-content;
+  width: 100%;
+  max-width: 340px;
   height: fit-content;
   padding: 4rem;
   border-radius: 8px;
@@ -27,7 +28,7 @@ const GenerateSection = styled.div`
 `
 
 const InputOptions = styled.div`
-  width: 400px;
+  width: 100%;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -79,6 +80,12 @@ const Button = styled.button`
   cursor: pointer;
 `
 
+const Password = styled.span`
+  width: 100%;
+  height: fit-content;
+  word-break: break-all;
+`
+
 export default function Home() {
   const [length, setLength] = useState(1)
   const [includeNumbers, setIncludeNumbers] = useState(false)
@@ -98,7 +105,6 @@ export default function Home() {
     setPassword(password)
   }
 
-
   return (
     <Container>
       <GenerateSection>
@@ -117,7 +123,7 @@ export default function Home() {
           </NumbersSection>
         </InputOptions>
         <Button onClick={() => generatePassword()}>Generate</Button>
-        {password ? <span>{password}</span>: null}
+        {password ? <Password>{password}</Password>: null}
       </GenerateSection>
     </Container>
   )
